@@ -51,10 +51,7 @@ export const runConversation = async (openAi: OpenAI, { prompt }: Options): Prom
       tool_call_id: toolId,
     };
 
-    if (responseMessage) {
-      messages.push(responseMessage);
-    }
-
+    messages.push(responseMessage!);
     messages.push(functionResponse);
 
     const secondResponse: ChatCompletion = await openAi.chat.completions.create({
