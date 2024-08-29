@@ -1,0 +1,27 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "getWeather",
+      "description": "Obtiene el clima de una ciudad, solo la debes usar cuando el usuario quiera consultar el clima",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "cityName": {
+            "type": "string",
+            "description": "Es el nombre de la ciudad"
+          }
+        },
+        "required": ["cityName"],
+        "additionalProperties": false
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "getRandomCity",
+      "description": "Obtiene una ciudad aleatoria del mundo"
+    }
+  }
+]

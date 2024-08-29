@@ -1,0 +1,26 @@
+{
+  "name": "chat-completation-node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "rimraf dist && tsc --noEmit false",
+    "start": "node --env-file=.env dist/index.js",
+    "dev": "tsx watch --env-file=.env src/index.ts"
+  },
+  "keywords": [
+    "node",
+    "typescript",
+    "openai"
+  ],
+  "author": "Jhon Huiracocha",
+  "license": "ISC",
+  "description": "A simple implementation of OpenAI's chat completions and function calling using Node.js",
+  "devDependencies": {
+    "rimraf": "^6.0.1",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "openai": "^4.56.1"
+  }
+}
