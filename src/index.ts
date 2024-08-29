@@ -1,6 +1,6 @@
 import { OpenAI } from 'openai';
 
-import { runConversation } from './services';
+import { runParalleConversation } from './services';
 
 async function main() {
   try {
@@ -8,8 +8,11 @@ async function main() {
       apiKey: process.env.OPENAI_KEY,
     });
 
-    const answer: string | null = await runConversation(openAi, {
-      prompt: 'Quiero que me digas una ciudad aleatoria del mundo?',
+    const answer: string | null = await runParalleConversation(openAi, {
+      prompt: `
+        What is the cost of living in Bogotá? I want to know how much it would cost to live there, including housing,
+        food, transportation, and other expenses.
+      `,
     });
 
     console.log({ answer });
