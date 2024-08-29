@@ -7,7 +7,7 @@ import {
   ChatModel,
 } from 'openai/resources';
 
-import { generatePromp } from './promp';
+import { generatePrompt } from './prompt';
 import { getToolOutput, TOOLS } from './tools';
 
 type Options = {
@@ -20,7 +20,7 @@ export const runConversation = async (openAi: OpenAI, { prompt }: Options): Prom
   const messages: ChatCompletionMessageParam[] = [
     {
       role: 'system',
-      content: generatePromp(),
+      content: generatePrompt(),
     },
     {
       role: 'user',
