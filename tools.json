@@ -3,13 +3,31 @@
     "type": "function",
     "function": {
       "name": "getWeather",
-      "description": "Obtiene el clima de una ciudad, solo la debes usar cuando el usuario quiera consultar el clima",
+      "description": "Retrieves the current weather conditions for a specific city. Use this function only when the user requests weather information.",
       "parameters": {
         "type": "object",
         "properties": {
           "cityName": {
             "type": "string",
-            "description": "Es el nombre de la ciudad"
+            "description": "The name of the city for which to retrieve the weather."
+          }
+        },
+        "required": ["cityName"],
+        "additionalProperties": false
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "getCostOfLiving",
+      "description": "Fetches the cost of living for a specific city, including expenses such as housing, food, transportation, and other living costs.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "cityName": {
+            "type": "string",
+            "description": "The name of the city for which to retrieve cost of living information."
           }
         },
         "required": ["cityName"],
@@ -21,7 +39,7 @@
     "type": "function",
     "function": {
       "name": "getRandomCity",
-      "description": "Obtiene una ciudad aleatoria del mundo"
+      "description": "Generates a random city from anywhere in the world. Useful for exploring new places or providing a random suggestion."
     }
   }
 ]
