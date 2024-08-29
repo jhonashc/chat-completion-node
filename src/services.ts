@@ -35,8 +35,8 @@ export const runConversation = async (openAi: OpenAI, { prompt }: Options): Prom
     tool_choice: 'auto',
   });
 
-  const responseMessage: ChatCompletionMessage = response.choices[0]?.message!;
-  const toolCall: ChatCompletionMessageToolCall | null = responseMessage.tool_calls?.[0] ?? null;
+  const responseMessage: ChatCompletionMessage | null = response.choices[0]?.message ?? null;
+  const toolCall: ChatCompletionMessageToolCall | null = responseMessage?.tool_calls?.[0] ?? null;
 
   if (toolCall) {
     const toolId: string = toolCall.id;
@@ -51,8 +51,10 @@ export const runConversation = async (openAi: OpenAI, { prompt }: Options): Prom
       tool_call_id: toolId,
     };
 
-    messages.push(responseMessage);
-    messages.push(functionResponseMessage);
+    if (responseMessage) {
+      messages.push(responseMessage);
+      messages.push(functionResponseMessage);
+    }
 
     const secondResponse: ChatCompletion = await openAi.chat.completions.create({
       model,
@@ -62,5 +64,5 @@ export const runConversation = async (openAi: OpenAI, { prompt }: Options): Prom
     return secondResponse.choices[0]?.message.content ?? null;
   }
 
-  return response.choices[0]?.message.content ?? null;
+  return responseMessage?.content ?? null;
 };
