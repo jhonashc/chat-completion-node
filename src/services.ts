@@ -67,7 +67,7 @@ export const runConversation = async (openAi: OpenAI, { prompt }: Options): Prom
   return responseMessage?.content ?? null;
 };
 
-export const runParalleConversation = async (openAi: OpenAI, { prompt }: Options): Promise<string | null> => {
+export const runParallelConversation = async (openAi: OpenAI, { prompt }: Options): Promise<string | null> => {
   const model: ChatModel = 'gpt-3.5-turbo';
 
   const messages: ChatCompletionMessageParam[] = [
