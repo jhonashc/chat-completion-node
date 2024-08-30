@@ -7,7 +7,7 @@ import type {
   ChatModel,
 } from 'openai/resources/chat';
 
-import { chatCompletion } from './openai';
+import { chatCompletion, getToolMessages } from './openai';
 import { generateSystemPrompt } from './prompt';
 import { getToolOutput, TOOLS } from './tools';
 
@@ -43,27 +43,12 @@ export const runConversation = async (openAi: OpenAI, { prompt }: Options): Prom
 
   if (!toolCalls) return responseMessage.content; // No tool calls, return directly
 
-  // Append the original function calls to the conversation
-  messages.push(responseMessage);
+  // Getting new messages from tool calls
+  const toolMessages: ChatCompletionMessageParam[] = await getToolMessages(responseMessage);
 
-  for (const toolCall of toolCalls) {
-    const toolId: string = toolCall.id;
-    const functionName: string = toolCall.function.name;
-    const functionArgs: any = JSON.parse(toolCall.function.arguments);
+  // Adding new messages from tool calls
+  messages.concat(toolMessages);
 
-    const toolOutput: any = await getToolOutput(functionName, functionArgs);
-
-    const functionResponseMessage: ChatCompletionMessageParam = {
-      role: 'tool',
-      content: JSON.stringify(toolOutput),
-      tool_call_id: toolId,
-    };
-
-    // Include the result of the function calls
-    messages.push(functionResponseMessage);
-  }
-
-  // Call the OpenAI API's chat completions endpoint to send the tool call result back to the model
   const secondResponse: ChatCompletion.Choice | undefined = await chatCompletion(openAi, {
     model: CHAT_MODEL,
     messages,
