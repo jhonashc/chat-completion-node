@@ -37,15 +37,11 @@ export const runConversation = async (openAi: OpenAI, { prompt }: Options): Prom
 
   const responseMessage: ChatCompletionMessage | undefined = response?.message;
 
-  if (!responseMessage) {
-    return null; // Handle missing response message
-  }
+  if (!responseMessage) return null; // Handle missing response message
 
   const toolCalls: ChatCompletionMessageToolCall[] | undefined = responseMessage.tool_calls;
 
-  if (!toolCalls) {
-    return responseMessage.content; // No tool calls, return directly
-  }
+  if (!toolCalls) return responseMessage.content; // No tool calls, return directly
 
   // Append the original function calls to the conversation
   messages.push(responseMessage);
